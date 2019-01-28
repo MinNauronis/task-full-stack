@@ -1,3 +1,6 @@
-<p>
-  user-details works!
-</p>
+<p>user detail works</p>
+<div *ngIf="user">
+  <p>{{user.name}}</p>
+  <p>{{user.email}}</p>
+  <p>{{user.website}}</p>
+</div>
