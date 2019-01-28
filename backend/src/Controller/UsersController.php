@@ -12,6 +12,7 @@ use FOS\RestBundle\Routing\ClassResourceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
@@ -24,57 +25,74 @@ class UsersController extends AbstractController implements ClassResourceInterfa
 
     private $entityManager;
     private $userService;
+    private $responseHeaders = [];
 
     public function __construct(EntityManagerInterface $entityManager, UserService $userService)
     {
-        $this->entityManager =$entityManager;
+        $this->entityManager = $entityManager;
         $this->userService = $userService;
+
+        $this->responseHeaders[] = ['Content-type' => 'application/json'];
     }
 
     /**
      * @Rest\Get("/users/{id}")
      * @param User $user
-     * @return JsonResponse
+     * @return Response
      */
-    public function getAction(User $user)
+    public function getAction(int $id)
     {
-        return new JsonResponse($user, JsonResponse::HTTP_OK);
+        $user = $this->userService->get($id);
+
+        $response = $this->userService->serialize($user);
+
+        return new Response($response, JsonResponse::HTTP_OK, $this->responseHeaders);
     }
 
     public function cgetAction()
     {
         $users = $this->userService->getAll();
 
-        return new JsonResponse($users, JsonResponse::HTTP_OK);
+        $response = [];
+        foreach ($users as $user) {
+            $response[] = $this->userService->serialize($user);
+        }
+
+        $response = '['.implode(",\n",$response).']';
+
+        return new Response($response, JsonResponse::HTTP_OK, $this->responseHeaders);
     }
 
     /**
      * @Rest\Post("/users")
      * @param Request $request
-     * @return JsonResponse
+     * @return Response
      */
     public function postAction(Request $request)
     {
         $data = $request->request->all();
         $user = $this->userService->create($data);
 
+        $response = $this->userService->serialize($user);
 
-        return new JsonResponse($user, JsonResponse::HTTP_CREATED);
+        return new Response($response, JsonResponse::HTTP_CREATED, $this->responseHeaders);
     }
 
     /**
      * @Rest\Put("/users/{id}")
      * @param Request $request
      * @param User $user
-     * @return JsonResponse
+     * @return Response
      * @throws \Doctrine\ORM\EntityNotFoundException
      */
     public function putAction(Request $request, User $user)
     {
         $data = $request->request->all();
-        $user = $this->userService->update($data, $user);
+        $this->userService->update($data, $user);
 
-        return new JsonResponse($user, JsonResponse::HTTP_OK);
+        $response = $this->userService->serialize($user);
+
+        return new Response($response, JsonResponse::HTTP_OK, $this->responseHeaders);
     }
 
     /**

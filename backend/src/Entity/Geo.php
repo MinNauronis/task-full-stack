@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GeoRepository")
@@ -19,11 +20,13 @@ class Geo
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank()
      */
     private $lat;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank()
      */
     private $lng;
 

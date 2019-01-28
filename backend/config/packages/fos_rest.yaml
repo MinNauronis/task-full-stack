@@ -12,15 +12,23 @@ fos_rest:
       Doctrine\ORM\EntityNotFoundException: 404
       Doctrine\DBAL\Exception\UniqueConstraintViolationException: 400
       Zend\Code\Exception\BadMethodCallException: 400
+      \LogicException: 400
+      \DomainException: 400
     messages:
       Doctrine\ORM\EntityNotFoundException: true
       Zend\Code\Exception\BadMethodCallException: true
       Doctrine\DBAL\Exception\UniqueConstraintViolationException: true
+      \LogicException: true
+      \DomainException: true
 
   format_listener:
     enabled: true
     rules:
       - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json ] }
+
+  routing_loader:
+    default_format: json
+    include_format: false
 
   view:
     view_response_listener:  true

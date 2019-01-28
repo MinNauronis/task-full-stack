@@ -10,6 +10,7 @@ use App\Entity\User;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Zend\Code\Exception\BadMethodCallException;
 
@@ -17,11 +18,13 @@ class UserService
 {
     private $entityManager;
     private $userRepository;
+    private $serializer;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, SerializerInterface $serializer)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository(User::class);
+        $this->serializer = $serializer;
     }
 
     /**
@@ -266,6 +269,30 @@ class UserService
         } catch (UniqueConstraintViolationException $e) {
             throw new BadRequestHttpException('Email already taken', $e, 400);
         }
+    }
+
+    /**
+     * Serialize user's object to json
+     * @param User|null $user
+     * @return string
+     */
+    public function serialize(?User $user) {
+        if(!$user) {
+            return '';
+        }
+
+        $serializedData = $this->serializer->serialize($user, 'json');
+
+        $decodedData = json_decode($serializedData, true);
+
+        unset($decodedData['address']['id']);
+        unset($decodedData['address']['geo']['id']);
+        unset($decodedData['company']['id']);
+        unset($decodedData['company']['users']);
+
+        $jsonData = json_encode($decodedData);
+
+        return $jsonData;
     }
 
 }
