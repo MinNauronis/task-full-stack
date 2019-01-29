@@ -1,6 +1,28 @@
-<p>user detail works</p>
 <div *ngIf="user">
-  <p>{{user.name}}</p>
-  <p>{{user.email}}</p>
-  <p>{{user.website}}</p>
+  <h1 class="text-center">{{user.name}}</h1>
+  <h3 class="text-center">aka {{user.username}}</h3>
+  <div class="container mt-5">
+    <table>
+      <tr>
+        <td><i class="fa fa-at"></i></td>
+        <td>{{user.email}}</td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-globe"></i></td>
+        <td>{{user.website}}</td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-phone"></i></td>
+        <td>{{user.phone}}</td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-home"></i></td>
+        <td>{{user.address.city}}</td>
+      </tr>
+      <tr>
+        <td><i class="fa fa-industry"></i></td>
+        <td>{{user.company.name}}</td>
+      </tr>
+    </table>
+  </div>
 </div>

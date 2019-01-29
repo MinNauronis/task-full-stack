@@ -1,0 +1,61 @@
+{
+  "png_path": "heroes/png/",
+  "webp_path": "heroes/webp",
+  "images": [
+    {
+      "name": "Alys Raine",
+      "png": "alys_raise.png",
+      "webp": "alys_raise.webp"
+    },
+    {
+      "name": "Ashrian",
+      "png": "ashrian.png",
+      "webp": "ashrian.webp"
+    },
+    {
+      "name": "Avric Albright",
+      "png": "avric_albright.png",
+      "webp": "avric_albright.webp"
+    },
+    {
+      "name": "Dezra The Vile",
+      "png": "dezra_the_vile.png",
+      "webp": "dezra_the_vile.webp"
+    },
+    {
+      "name": "Grisban The Thirsty",
+      "png": "grisban_the_thirsty.png",
+      "webp": "grisban_the_thirsty.webp"
+    },
+    {
+      "name": "Lauren of Bloodwood",
+      "png": "lauren_of_bloodwood.png",
+      "webp": "lauren_of_bloodwood,webp"
+    },
+    {
+      "name": "Logan Lashley",
+      "png": "logan_lashley.png",
+      "webp": "logan_lashley.webp"
+    },
+    {
+      "name": "Ravaella Lightfoot",
+      "png": "ravaella_lightfoot.png",
+      "webp": "ravaella_lightfoot.webp"
+    },
+    {
+      "name": "Rendiel",
+      "png": "rendiel.png",
+      "webp": "rendiel.webp"
+    },
+    {
+      "name": "Shiver",
+      "png": "shiver.png",
+      "webp": "shiver.webp"
+    },
+    {
+      "name": "Thaiden Mistpeak",
+      "png": "thaiden_mistpeak.png",
+      "webp": "thaiden_mistpeak.webp"
+    }
+  ]
+}

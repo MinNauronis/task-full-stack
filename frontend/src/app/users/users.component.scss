@@ -1,0 +1,28 @@
+@import "../../styles.scss";
+
+$box-height: 70px;
+
+.row a {
+  text-decoration: none;
+}
+
+.person-box {
+  color: $text-color;
+
+  &:hover {
+    background-color: darken($main-color, 10%);
+}
+  &:active {
+    background-color: darken($main-color, 20%);
+  }
+}
+
+.user-info {
+  width: 100%;
+  white-space:nowrap;
+  overflow:hidden;
+
+  i {
+    font-weight: bolder;
+  }
+}

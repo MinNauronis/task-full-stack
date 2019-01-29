@@ -1,9 +1,27 @@
-<p>
-  users works!
-</p>
+<h1 class="m-3 text-center">Users</h1>
 
-<div *ngFor="let user of users">
-  <a routerLink="/users/{{user.id}}">link</a>
-  <p>a</p>
-<h1>{{user.name}}</h1>
+<div class="container">
+    <div class="row">
+        <a *ngFor="let user of users"
+           class="box col-md-6 col-sm-12 w-100"
+           routerLink="/users/{{user.id}}">
+
+            <div class="person-box m-1 p-1">
+                <h2>{{user.name}}</h2>
+                <h5>as {{user.username}}</h5>
+                <div class="container">
+                    <div>
+                        <i class="d-inline fa fa-at pr-2"></i><h6 class="d-inline">{{user.email}}</h6>
+                    </div>
+                    <div>
+                        <i class="d-inline fa fa-phone pr-2"></i><h6 class="d-inline">{{user.phone}}</h6>
+                    </div>
+                    <div>
+                        <i class="d-inline fa fa-globe pr-2"></i><h6 class="d-inline">{{user.website}}</h6>
+                    </div>
+                </div>
+            </div>
+
+        </a>
+    </div>
 </div>
