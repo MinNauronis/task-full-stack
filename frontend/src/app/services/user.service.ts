@@ -13,13 +13,19 @@ const httpOptions = {
 })
 export class UserService {
 
-    private _baseURL = 'http://localhost:8000/api/users/'
+    private _baseURL = 'http://localhost:8000/api/users';
+    private _secondaryDataSource = 'https://jsonplaceholder.typicode.com/users';
 
     constructor(private _http: HttpClient) {
     }
 
-    public getUsers(): Observable<User[]> {
-        return this._http.get<User[]>(this._baseURL, httpOptions).pipe(
+    public getUsers(useFallbackData = false): Observable<User[]> {
+        let url = this._baseURL;
+        if (useFallbackData) {
+            url = this._secondaryDataSource;
+        }
+
+        return this._http.get<User[]>(url, httpOptions).pipe(
             catchError(this.handleError('get users', []))
         );
     }
@@ -44,11 +50,39 @@ export class UserService {
         };
     }
 
+    private getUrlWithId(id: number) : string {
+        return this._baseURL + "/" + id;
+    }
+
     public getUser(userId: number): Observable<User> {
-        let url = this._baseURL + userId;
+        let url = this.getUrlWithId(userId);
 
         return this._http.get<User>(url, httpOptions).pipe(
             catchError(this.handleError<User>('get user'))
         );
+    }
+
+    public createUser(user: User): Observable<any> {
+        console.log(user);
+        return this._http.post<any>(this._baseURL, user, httpOptions).pipe(
+            catchError(this.handleError<User>('create user'))
+        );
+    }
+
+    public updateUser(user: User): Observable<any> {
+        let url = this.getUrlWithId(user.id);
+
+        return this._http.put<any>(url, user, httpOptions).pipe(
+            catchError(this.handleError<User>('update user'))
+        );
+    }
+
+    public deleteCurtain(user: User | number): Observable<any> {
+        const id = typeof user === 'number' ? user : user.id;
+        let url = this.getUrlWithId(id);
+
+        return this._http.delete<any>(url, httpOptions).pipe(
+            catchError(this.handleError<any>('delete user'))
+        )
     }
 }

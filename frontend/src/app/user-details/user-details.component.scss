@@ -33,3 +33,18 @@ $hero-image-size: 200px;
     }
   }
 }
+
+.clickable i {
+  $color: lighten($main-color, 20%);
+  background-color: $color;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($color, 5%);
+  }
+
+  &:active {
+    background-color: darken($color, 10%);
+  }
+
+}

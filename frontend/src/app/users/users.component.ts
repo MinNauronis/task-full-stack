@@ -11,6 +11,8 @@ import {ImageService} from "../services/image.service";
 
 export class UsersComponent implements OnInit {
 
+    private hideFillButton = true;
+
     users: User[];
 
     constructor(private _imagesService: ImageService,
@@ -25,12 +27,39 @@ export class UsersComponent implements OnInit {
         this._userService.getUsers().subscribe(
             users => {
                 this.users = users;
+                if (users.length < 1) {
+                    this.hideFillButton = false;
+
+                }
             },
         );
     }
 
     private getImage(seed: number) {
         return 'assets/images/heroes/png/avric_albright.PNG'
+    }
+
+    private fillWithUsers() {
+        this._userService.getUsers(true).subscribe(
+            users => {
+                this.users = users;
+                this.hideFillButton = true;
+                this.users.forEach(user => {
+                    this.addUser(user);
+                });
+            },
+        );
+    }
+
+    private addUser(user: User) {
+        this._userService.createUser(user).subscribe(
+            _ => {
+                console.log('user added ' + _);
+            },
+            _ => {
+                console.log('error userAdd ' + _)
+            }
+        )
     }
 
 }

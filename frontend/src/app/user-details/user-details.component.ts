@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {User} from "../objects/user";
 import {UserService} from "../services/user.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MapComponent} from "../map/map.component";
 import {max, timeout} from "rxjs/operators";
 
@@ -19,7 +19,6 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     hideAddress = true;
     hideCompany = true;
 
-    isMapLoaded = false;
     lastWindowSize = 300;
     minMapWidth = 270;
 
@@ -29,7 +28,8 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
 
     constructor(
         private _userService: UserService,
-        private _route: ActivatedRoute
+        private _routeInfo: ActivatedRoute,
+        private _router: Router
     ) {
     }
 
@@ -40,12 +40,11 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     }
 
     getUser() {
-        const id = +this._route.snapshot.paramMap.get('id');
+        const id = +this._routeInfo.snapshot.paramMap.get('id');
 
         this._userService.getUser(id).subscribe(
             user => {
                 this.user = user;
-                this.setAddressOnMap().then(message => console.log(message));
             }
         );
     }
@@ -66,9 +65,6 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.isMapLoaded = true;
-        let coordinates = this.user.address.geo;
-        this.map.onChoseLocation(coordinates.lat, coordinates.lng);
     }
 
     async setAddressOnMap() {
@@ -86,7 +82,7 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
         var windowsWidth = window.innerWidth;
         let width = this.minMapWidth + windowsWidth * 0.5 - 280;
 
-        if (width && this.lastWindowSize != width) {
+        if (this.map != null && this.lastWindowSize != width) {
             if (width < this.minMapWidth) {
                 width = this.minMapWidth;
             }
@@ -95,6 +91,23 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
         }
 
         this.lastWindowSize = windowsWidth;
+    }
+
+    onCompanyClick() {
+        this.hideCompany = !this.hideCompany;
+    }
+
+
+    onAddressClick(): void {
+        this.hideAddress = !this.hideAddress;
+    }
+
+    onDelete(name: string, id: number) {
+        if(confirm("Are you sure to delete " + name + "?")) {
+            this._userService.deleteCurtain(id).subscribe();
+            this._router.navigateByUrl('users');
+
+        }
     }
 
 }

@@ -1,6 +1,11 @@
 <h1 class="m-3 text-center">Users</h1>
 
 <div class="container">
+    <div class="col-12 text-center" *ngIf="!hideFillButton">
+        <p>Sorry. We can't find any users in database. Please, user alternative source of users or fill one by yourself </p>
+        <button class="btn btn-primary" (click)="fillWithUsers()"> Get users </button>
+        <button class="btn btn-warning" (click)=""> New user </button>
+    </div>
     <div class="row">
         <a *ngFor="let user of users"
            class="box w-100 container

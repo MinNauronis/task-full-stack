@@ -11,6 +11,14 @@
 
     <div class="mt-5 mx-auto container">
 
+        <button type=button class="btn btn-primary m-2"  (click)="onDelete(user.username, user.id)">
+            <i class="fa fa-trash"></i> Retire
+        </button>
+
+        <button type=button class="btn btn-warning m-2">
+            <i class="fa fa-pencil"></i> Make some changes
+        </button>
+
         <div class="row details mt-2">
             <i class="col-sm-2 col-4 fa fa-at pr-2"> email:</i>
             <h6 class="col-sm-8 col ">{{user.email}}</h6>
@@ -26,22 +34,39 @@
             <h6 class="col-sm-8 col">{{user.website}}</h6>
         </div>
 
-        <div class="row details mt-2">
+        <div class="row details mt-2 clickable" (click)="onCompanyClick()">
             <i class="col-sm-2 col-4 fa fa-industry pr-2"> work:</i>
             <h6 class="col-sm-8 col">{{user.company.name}}</h6>
         </div>
-        <div [hidden]="true"
+        <div [hidden]="hideCompany"
              class="row">
-            {{user.company.name}}
-            {{user.company.catchPhrase}}
-            {{user.company.bs}}
+            <div class="container
+                        col-11 col-sm-10 col-md-4">
+                <div class="row details">
+                    <div class="pr-2
+                        col-12 col-sm-4"> Name:</div>
+                    <h6 class="col-6 col-sm">{{user.company.name}}</h6>
+                </div>
+                <div class="row details">
+                    <div class="pr-2
+                        col-12 col-sm-4"> Catch Phrase:</div>
+                    <h6 class="col-6 col-sm">{{user.company.catch_phrase}}</h6>
+                </div>
+                <div class="row details">
+                    <div class="pr-2
+                        col-12 col-sm-4"> Business Segment:</div>
+                    <h6 class="col-6 col-sm">{{user.company.bs}}</h6>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 container">
+            </div>
         </div>
 
-        <div class="row details mt-2">
+        <div class="row details mt-2 clickable" (click)="onAddressClick()">
             <i class="col-sm-2 col-4 fa fa-home pr-2"> lives in:</i>
             <h6 class="col-sm-8 col">{{user.address.city}}</h6>
         </div>
-        <div [hidden]="false"
+        <div [hidden]="hideAddress"
              class="row">
             <div class="container
                         col-11 col-sm-10 col-md-4">
@@ -67,7 +92,7 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 container">
-            <app-map></app-map>
+                <app-map></app-map>
             </div>
         </div>
     </div>
