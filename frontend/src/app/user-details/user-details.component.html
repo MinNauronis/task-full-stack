@@ -1,28 +1,74 @@
-<div *ngIf="user">
-  <h1 class="text-center">{{user.name}}</h1>
-  <h3 class="text-center">aka {{user.username}}</h3>
-  <div class="container mt-5">
-    <table>
-      <tr>
-        <td><i class="fa fa-at"></i></td>
-        <td>{{user.email}}</td>
-      </tr>
-      <tr>
-        <td><i class="fa fa-globe"></i></td>
-        <td>{{user.website}}</td>
-      </tr>
-      <tr>
-        <td><i class="fa fa-phone"></i></td>
-        <td>{{user.phone}}</td>
-      </tr>
-      <tr>
-        <td><i class="fa fa-home"></i></td>
-        <td>{{user.address.city}}</td>
-      </tr>
-      <tr>
-        <td><i class="fa fa-industry"></i></td>
-        <td>{{user.company.name}}</td>
-      </tr>
-    </table>
-  </div>
+<div class="container pt-5" *ngIf="user">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="hero-image img-thumbnail rounded mx-auto d-block" [src]="getImage(user.id)">
+        </div>
+        <div class="col-md my-auto username-wrapper">
+            <h1 class="text-center">{{user.name}}</h1>
+            <h3 class="text-center username">aka {{user.username}}</h3>
+        </div>
+    </div>
+
+    <div class="mt-5 mx-auto container">
+
+        <div class="row details mt-2">
+            <i class="col-sm-2 col-4 fa fa-at pr-2"> email:</i>
+            <h6 class="col-sm-8 col ">{{user.email}}</h6>
+        </div>
+
+        <div class="row details mt-2">
+            <i class="col-sm-2 col-4 fa fa-phone pr-2"> number:</i>
+            <h6 class="col-sm-8 col">{{user.phone}}</h6>
+        </div>
+
+        <div class="row details mt-2">
+            <i class="col-sm-2 col-4 fa fa-globe pr-2"> website:</i>
+            <h6 class="col-sm-8 col">{{user.website}}</h6>
+        </div>
+
+        <div class="row details mt-2">
+            <i class="col-sm-2 col-4 fa fa-industry pr-2"> work:</i>
+            <h6 class="col-sm-8 col">{{user.company.name}}</h6>
+        </div>
+        <div [hidden]="true"
+             class="row">
+            {{user.company.name}}
+            {{user.company.catchPhrase}}
+            {{user.company.bs}}
+        </div>
+
+        <div class="row details mt-2">
+            <i class="col-sm-2 col-4 fa fa-home pr-2"> lives in:</i>
+            <h6 class="col-sm-8 col">{{user.address.city}}</h6>
+        </div>
+        <div [hidden]="false"
+             class="row">
+            <div class="container
+                        col-11 col-sm-10 col-md-4">
+                <div class="row details">
+                    <i class="fa fa-building pr-2
+                        col-5 col-sm-3 col-md-5"> city:</i>
+                    <h6 class="col-6 col-sm">{{user.address.city}}</h6>
+                </div>
+                <div class="row details">
+                    <i class="fa fa-road pr-2
+                        col-5 col-sm-3 col-md-5"> street:</i>
+                    <h6 class="col-6 col-sm">{{user.address.street}}</h6>
+                </div>
+                <div class="row details">
+                    <i class="fa fa-home pr-2
+                        col-5 col-sm-3 col-md-5"> suite:</i>
+                    <h6 class="col-6 col-sm">{{user.address.suite}}</h6>
+                </div>
+                <div class="row details">
+                    <i class="fa fa-envelope pr-2
+                        col-5 col-sm-3 col-md-5"> zip code:</i>
+                    <h6 class="col-6 col-sm">{{user.address.zipcode}}</h6>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 container">
+            <app-map></app-map>
+            </div>
+        </div>
+    </div>
 </div>

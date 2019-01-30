@@ -7,7 +7,9 @@ $box-height: 70px;
 }
 
 .person-box {
+  cursor: pointer;
   color: $text-color;
+  background-color: $main-color;
 
   &:hover {
     background-color: darken($main-color, 10%);
@@ -17,12 +19,23 @@ $box-height: 70px;
   }
 }
 
-.user-info {
-  width: 100%;
-  white-space:nowrap;
-  overflow:hidden;
+.username {
+  font-style: italic;
+}
+
+.details {
+  color: $secondary-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   i {
-    font-weight: bolder;
+    font-size: 1.11em;
   }
 }
+
+.hero-image {
+  height: 100px;
+  width: 100px;
+}
+

@@ -7,8 +7,10 @@ import {HeroImage} from "../objects/hero-image";
 @Injectable({
     providedIn: 'root'
 })
+//!!! A service should load before its first usage
 export class ImageService {
 
+    private _baseImagesPath = 'assets/images/';
     private _isPathLoad = false;
     private _isWebPSupport = false;
     private _heroesImages: HeroImage[];
@@ -24,9 +26,8 @@ export class ImageService {
         this.getJSON().subscribe(
             data => {
                 this._heroesImages = data['images'];
-                this._pngPath = 'assets/' + data['png_path'];
-                this._webpPath = 'assets/' + data['webp_path'];
-                console.log('images is loaded');
+                this._pngPath = this._baseImagesPath + data['png_path'] + '/';
+                this._webpPath = this._baseImagesPath + data['webp_path'] + '/';
                 this._isPathLoad = true;
             }
         );
@@ -34,24 +35,17 @@ export class ImageService {
     }
 
     private getJSON(): Observable<any> {
-        return this._http.get("assets/heroesImages.json").pipe(
-            tap((error: any) => console.log(error))
-        )
+        return this._http.get("assets/heroesImages.json");
     }
 
     public getImagePath(seed: number): Observable<string> {
-        console.log(this._isWebPSupport);
         const pathGiver = new Observable<string>(
             (obsever) => {
-                if (!this._isPathLoad) {
-
-                }
-
                 if (!this._isPathLoad) {
                     obsever.next('');
                 } else {
                     let id = this.generateImageId(seed);
-                    let path = this.generateImagePath(id);
+                    let path = this.generateImagePath(id, this._isWebPSupport);
                     obsever.next(path);
                 }
 

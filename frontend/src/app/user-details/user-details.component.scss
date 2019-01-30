@@ -1,0 +1,35 @@
+@import "../../styles.scss";
+@import "../users/users.component";
+
+$hero-image-size: 200px;
+
+.hero-image {
+  min-height: $hero-image-size;
+  min-width: $hero-image-size;
+}
+
+.username-wrapper {
+  h1 {
+    font-size: 8vw;
+    
+    @media (max-width: 500px) {
+      font-size: 40px;
+    }
+    
+    @media (min-width: 1500px) {
+      font-size: 120px;
+    }
+  }
+
+  h3 {
+    font-size: 5vw;
+
+    @media (max-width: 500px) {
+      font-size: 25px;
+    }
+
+    @media (min-width: 1000px) {
+      font-size: 50px;
+    }
+  }
+}

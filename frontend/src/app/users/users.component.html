@@ -3,23 +3,32 @@
 <div class="container">
     <div class="row">
         <a *ngFor="let user of users"
-           class="box col-md-6 col-sm-12 w-100"
+           class="box w-100 container
+           col-md-6 col-sm-12"
            routerLink="/users/{{user.id}}">
+            <div class="person-box m-1 p-2 row">
 
-            <div class="person-box m-1 p-1">
-                <h2>{{user.name}}</h2>
-                <h5>as {{user.username}}</h5>
-                <div class="container">
-                    <div>
-                        <i class="d-inline fa fa-at pr-2"></i><h6 class="d-inline">{{user.email}}</h6>
-                    </div>
-                    <div>
-                        <i class="d-inline fa fa-phone pr-2"></i><h6 class="d-inline">{{user.phone}}</h6>
-                    </div>
-                    <div>
-                        <i class="d-inline fa fa-globe pr-2"></i><h6 class="d-inline">{{user.website}}</h6>
+                <div class="m-auto
+                col-sm-4 col-12">
+                    <img class="hero-image" [src]="getImage(user.id)">
+                </div>
+
+                <div class="col-sm col-12">
+                    <h2>{{user.name}}</h2>
+                    <h5 class="username pl-2">as {{user.username}}</h5>
+                    <div class="container">
+                        <div class="details">
+                            <i class="d-inline fa fa-at pr-2"></i><h6 class="d-inline">{{user.email}}</h6>
+                        </div>
+                        <div class="details">
+                            <i class="d-inline fa fa-phone pr-2"></i><h6 class="d-inline">{{user.phone}}</h6>
+                        </div>
+                        <div class="details">
+                            <i class="d-inline fa fa-globe pr-2"></i><h6 class="d-inline">{{user.website}}</h6>
+                        </div>
                     </div>
                 </div>
+
             </div>
 
         </a>
