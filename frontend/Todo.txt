@@ -1,6 +1,0 @@
-UserComponent:
--load heroes images dynamically (getImage())
--image margin problem on small (xs) screen
-
-AppComponent:
--  image service load location-

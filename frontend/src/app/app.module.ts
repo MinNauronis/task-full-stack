@@ -9,6 +9,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {NavigationComponent} from './navigation/navigation.component';
 import {MapComponent} from './map/map.component';
 import {AgmCoreModule} from "@agm/core";
+import {NewUserComponent} from './user-new/new-user.component';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import {AgmCoreModule} from "@agm/core";
         UsersComponent,
         UserDetailsComponent,
         NavigationComponent,
-        MapComponent
+        MapComponent,
+        NewUserComponent
     ],
     imports: [
         BrowserModule,
